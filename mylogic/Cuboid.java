@@ -13,21 +13,29 @@ public class Cuboid {
     public int length,breadth,height,id;
     public Point topLeftFront,topRightFront,topLeftRear,topRightRear,bottomLeftFront,bottomRightFront,bottomLeftRear,bottomRightRear;
     public float[] color;
+    public boolean isFragile;
     public static Random r;
     public static int idCounter;
     static{
         r=new Random();
-        idCounter=0;
+        idCounter=1;
     }
     public Cuboid(int length,int breadth,int height){
         this.length=length;
         this.breadth=breadth;
         this.height=height;
         color=new float[]{(new Float(r.nextInt(255)+1)/255.0f),(new Float(r.nextInt(255)+1)/255.0f),(new Float(r.nextInt(255)+1)/255.0f)};
+        if(color[0]==1.0f && color[1]==0.0f && color[3]==0.0f){
+            color=new float[]{(new Float(r.nextInt(255)+1)/255.0f),(new Float(r.nextInt(255)+1)/255.0f),(new Float(r.nextInt(255)+1)/255.0f)};
+        }
         id=idCounter++;
+        if(id%6==0)
+            isFragile=true;
+        else
+            isFragile=false;
     }
     public String toString(){
-        return "(L="+length+",B="+breadth+",H="+height+",BLR="+bottomLeftRear+",BRR="+bottomRightRear+",BRF="+bottomRightFront+",BLF="+bottomLeftFront+",TLF="+topLeftFront+",TLR="+topLeftRear+",TRR="+topRightRear+",TRF="+topRightFront+" COLOR=("+color[0]+","+color[1]+","+color[2]+"))";
+        return "("+id+" L="+length+",B="+breadth+",H="+height+",BLR="+bottomLeftRear+",BRR="+bottomRightRear+",BRF="+bottomRightFront+",BLF="+bottomLeftFront+",TLF="+topLeftFront+",TLR="+topLeftRear+",TRR="+topRightRear+",TRF="+topRightFront+" COLOR=("+color[0]+","+color[1]+","+color[2]+"))";
     }
     public void rotate(){
         int temp=this.length;
